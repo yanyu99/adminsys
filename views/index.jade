@@ -1,0 +1,90 @@
+extends layout
+
+block content
+ <div class="layui-layout layui-layout-admin">
+
+		
+			<div class="layui-header">
+				<a href="./index.html" class="layui-hide-xs">
+					<div class="layui-logo" style="font-weight: bold;">报价系统</div>
+				</a>
+				<a href="javascript:;" class="layui-hide-xs">
+					<div class="fsSwitchMenu"><i class="layui-icon">&#xe614;</i></div>
+				</a>
+
+			
+				<ul class="layui-nav layui-layout-left fsTopMenu" id="fsTopMenu" lay-filter="fsTopMenu">
+					<li class="layui-nav-item layui-this" dataPid="fs1">
+						<a href="javascript:;"><i class="layui-icon">&#xe68e;</i> <cite>控制台</cite></a>
+					</li>
+				</ul>
+
+				<ul class="layui-nav layui-layout-right">
+					<li class="layui-nav-item layui-hide-xs">
+						<a href="javascript:;">
+							<img src="/img/100.jpg" class="layui-nav-img"> Admin
+						</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">基本资料</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">安全设置</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item layui-hide-xs">
+						<a href="javascript:;"><i class="iconfont icon-tuichu"></i> 退出</a>
+					</li>
+				</ul>
+			</div>
+
+		
+			<div class="layui-side layui-bg-black">
+				<div class="layui-side-scroll">
+					<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+					<ul class="layui-nav layui-nav-tree fsMenu" lay-filter="fsLeftMenu" id="fsLeftMenu">
+						<li class="layui-nav-item layui-nav-itemed" dataPid="fs1" style="display: none;">
+							<a href="javascript:;">主菜单</a>
+							<dl class="layui-nav-child">
+								<dd class="layui-this" lay-id="1">
+									<a href="javascript:void(0);" menuId="home" dataUrl="index.html"><i class="layui-icon">&#xe68e;</i> <cite>首页</cite></a>
+								</dd>
+								<dd>
+									<a href="javascript:void(0);" menuId="offer" dataUrl="view/offer/offer.html"><i class="layui-icon">&#xe629;</i> <cite>报价</cite></a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		
+			<div class="layui-body layui-form">
+				<div class="layui-tab layui-tab-card fsTab" lay-filter="fsTab" lay-allowClose="true">
+					
+					<ul class="layui-tab-title" id="fsTabMenu">
+						<li class="layui-this" lay-id="1"><i class="layui-icon">&#xe68e;</i><cite>首页</cite>
+							<p class="layui-tab-close" style="display: none;"></p>
+						</li>
+					</ul 
+					<div class="layui-tab-content">
+						<div class="layui-tab-item layui-show" lay-id="1">
+							<iframe src="view/common/home.html"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-footer">
+				
+				©2017
+				<a href="javascript:;" target="_black">xiaowei</a>
+			</div>
+		</div>
+
+	
+		<div class="site-tree-mobile layui-hide">
+			<i class="layui-icon">&#xe602;</i>
+		</div>
+		<div class="site-mobile-shade"></div>

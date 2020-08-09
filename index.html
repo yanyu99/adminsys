@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta content="text/html;charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>报价系统</title>
+	<link rel="icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/lib/layui/css/layui.css" media="all" />
+	<link href="/lib/contextMenu/jquery.contextMenu.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="all" />
+	<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/lib/contextMenu/jquery.contextMenu.min.js"></script>
+	<script type="text/javascript" src="/lib/layui/layui.js"></script>
+	<script type="text/javascript" src="/lib/frame/js/fsDict.js?v=1.6.2"></script>
+	<script type="text/javascript" src="/lib/frame/js/fs.js?v=1.6.2"></script>
+	<script type="text/javascript" src="/lib/frame/js/main.js?v=1.6.2"></script>
+</head>
+
+<body>
+	<div class="layui-layout layui-layout-admin" id="vue-offer-main">
+
+		<!-- 顶部 -->
+		<div class="layui-header">
+			<a href="./" class="layui-hide-xs">
+				<div class="layui-logo" style="font-weight: bold;">中意 报价系统</div>
+			</a>
+			<a href="javascript:;" class="layui-hide-xs">
+				<div class="fsSwitchMenu"><i class="layui-icon">&#xe614;</i></div>
+			</a>
+
+			<!-- 顶部菜单 -->
+			<ul class="layui-nav layui-layout-left fsTopMenu" id="fsTopMenu" lay-filter="fsTopMenu">
+				<li class="layui-nav-item layui-this" dataPid="fs1">
+					<a href="javascript:;"><i class="layui-icon">&#xe68e;</i> <cite>控制台</cite></a>
+				</li>
+			</ul>
+
+			<ul class="layui-nav layui-layout-right">
+				<li class="layui-nav-item layui-hide-xs">
+					<a href="javascript:;">
+						<img src="/images/100.jpg" class="layui-nav-img"> <label id="accountName"
+							v-text="txtAccount"></label>
+					</a>
+					<!-- <dl class="layui-nav-child">
+						<dd>
+							<a href="javascript:;">基本资料</a>
+						</dd>
+						<dd>
+							<a href="javascript:;">安全设置</a>
+						</dd>
+					</dl> -->
+				</li>
+				<li class="layui-nav-item layui-hide-xs">
+					<a href="/logout"><i class="iconfont icon-tuichu"></i> 退出</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- 左边菜单 -->
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul class="layui-nav layui-nav-tree fsMenu" lay-filter="fsLeftMenu" id="fsLeftMenu">
+					<li class="layui-nav-item layui-nav-itemed" dataPid="fs1" style="display: none;">
+						<a href="javascript:;">主菜单</a>
+						<dl class="layui-nav-child" id="">
+							<template v-for="(item,index) in arrMenu" :key='item.id'>
+
+								<dd :class="index == 0 ? 'layui-this':' '" :lay-id="item.id">
+									<a href="javascript:void(0);" :menuId="item.icon" :dataUrl="item.path"><i
+											class="layui-icon">&#xe629;</i> <cite v-text="item.des"></cite></a>
+								</dd>
+
+							</template>
+							<!-- <dd class="layui-this" lay-id="1">
+								<a href="javascript:void(0);" menuId="offer" dataUrl="/offer"><i
+										class="layui-icon">&#xe629;</i> <cite>报价</cite></a>
+							</dd>
+							<dd>
+								<a href="javascript:void(0);" menuId="home" dataUrl="/database"><i
+										class="layui-icon">&#xe68e;</i> <cite>数据库</cite></a>
+							</dd> -->
+						</dl>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 右边内容区域 -->
+		<div class="layui-body layui-form">
+			<div class="layui-tab layui-tab-card fsTab" lay-filter="fsTab" lay-allowClose="true">
+				<!-- 菜单导航 -->
+				<ul class="layui-tab-title" id="fsTabMenu">
+					<li class="layui-this" lay-id="1"><i class="layui-icon">&#xe68e;</i><cite>首页</cite>
+						<p class="layui-tab-close" style="display: none;"></p>
+					</li>
+				</ul <!-- 内容 -->
+				<div class="layui-tab-content">
+					<div class="layui-tab-item layui-show" lay-id="1">
+						<iframe src="/offer/offer.html" id="offer" class="offer" name="offer"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			©2019
+			<a href="javascript:;" target="_black">中意*整木家居</a>
+		</div>
+	</div>
+
+	<!-- 移动导航 -->
+	<div class="site-tree-mobile layui-hide">
+		<i class="layui-icon">&#xe602;</i>
+	</div>
+	<div class="site-mobile-shade"></div>
+</body>
+
+<script src="/lib/vue/vue.js"></script>
+<script src="/utils/dmsHub.js"></script>
+<script>
+	window.dms = new dmsHub();
+	new Vue({
+		el: '#vue-offer-main',
+		data() {
+			return {
+				txtAccount: "",
+				arrMenu: [],
+			}
+		},
+		mounted() {
+			this.getData();
+		},
+		methods: {
+			getData() {
+				dms.getCurAccount({}, (res) => {
+					var obj = res.accountObj || {};
+					this.txtAccount = obj.account;
+					this.arrMenu = res.userMenu || [];
+				}, (res) => {
+					window.location.href = "/login";
+				});
+			},
+		},
+	});
+</script>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>报价</title>
+		<script src="/javascripts/common/head.js"></script>
+		<style>
+			.layui-form-label {
+				width: 100px;
+			}
+		</style>
+		<script src="/lib/vue/vue.js"></script>
+		<script src="/lib/moment/moment.js"></script>
+		<script src="/lib/moment/zh.js"></script>
+		<script src="/lib/jquery/jQuery.print.min.js"></script>
+	</head>
+
+	<body>
+		<div class="layui-btn-group demoTable">
+			<button class="layui-btn layui-btn-danger" data-type="delselected">删除获取行数据</button>
+			<button class="layui-btn" data-type="addDatabase">增加</button>
+			<button class="layui-btn layui-btn-danger" data-type="save">保存</button>
+		  </div>
+		   
+		  <table class="layui-table" id="lay-table" lay-data="{height: 'full-50', cellMinWidth: 50, limit:10, url:'/demo/table/user/', page:true, id:'idTest'}" lay-filter="demo">
+			<thead>
+			  <tr>
+				<th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+				<th lay-data="{field:'id', width:80, sort: true, fixed: true}">ID</th>
+				<th lay-data="{field:'material', width:100}">产品名称</th>
+				<th lay-data="{field:'name', width:80, sort: true}">型号</th>
+				<th lay-data="{field:'style', minWidth:130, style:'background-color: #FF6666; color: #fff;'}">饰面</th>
+				<th lay-data="{field:'textures', minWidth:180, style:'background-color: #3399FF; color: #fff;'}">材质/单价</th>
+				<th lay-data="{field:'types', minWidth:180}">形状/倍价</th>
+				<th lay-data="{field:'unitmeas', width:80, sort: true}">单位</th>
+				
+				<th lay-data="{field:'length', width:80}">长(高)</th>
+				<th lay-data="{field:'width', width:80}">宽</th>
+				<th lay-data="{field:'Deep', width:80}">深(厚)</th>
+				<th lay-data="{field:'outLenBase', width:80}">超长(高)</th>
+				<th lay-data="{field:'outWidBase', width:80}">超宽</th>
+				<th lay-data="{field:'outDeepBase', width:80}">超深(厚)</th>
+				<th lay-data="{field:'outPriceBase', width:80}">单超价</th>
+				<th lay-data="{fixed: 'right', minWidth:178, align:'center', toolbar: '#barDemo'}"></th>
+			  </tr>
+			</thead>
+		  </table>
+		   
+		  <script type="text/html" id="barDemo">
+			<!-- <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a> -->
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		  </script>
+
+		<script src="script/database.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="/javascripts/common/head.js"></script>
+		<style>
+			.layui-form-label {
+				width: 100px;
+			}
+		</style>
+		<script src="/lib/vue/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="editmaterial">
+			<div style="height: 15px;"></div>
+			<!--添加-->
+			<form class="layui-form" id="vue-editmaterial">
+				<div class="layui-form-item">
+					<label class="layui-form-label">ID</label>
+					<div class="layui-input-inline">
+						<input lay-verify="required" readonly="readonly" disabled="disabled" id="textureId" type="text" v-model="paramModel.id" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">材质</label>
+					<div class="layui-input-inline">
+						<input lay-verify="required" id="texture" type="text" v-model="paramModel.texture" class="layui-input">
+					</div>
+				</div>
+				<!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+			</form>
+		</div>
+		<script src="script/editmaterial.js"></script>
+	</body>
+
+</html>

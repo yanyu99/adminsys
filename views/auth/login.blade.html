@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>登录</title>
+	<link rel="icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/lib/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="all" />
+	<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/lib/layui/layui.js"></script>
+</head>
+
+<body class="bd_login">
+	<div class="layui-layout layui-layout-admin">
+
+		<div class="wrapper">
+			<h1>中意*整木家居系统</h1>
+			<div class="form-list">
+				<form class="layui-form" action="/login" method="POST" onsubmit="return true">
+					<div class="layui-form-item">
+						<label class="layui-form-label">用户名</label>
+						<div class="layui-input-block">
+							<input type="text" name="account" lay-verify="account" autocomplete="off"
+								placeholder="请输入用户名" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">密码</label>
+						<div class="layui-input-block">
+							<input type="text" name="password" lay-verify="password" autocomplete="off"
+								placeholder="请输入密码" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">登录</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div id="nav">
+				还没有账号，马上<a href="/register">注册</a>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+<style type="text/css">
+	.bd_login {
+		background: url("./public/images/780.jpg")
+	}
+
+	.wrapper {
+		margin: 30px auto;
+		width: 800px;
+		text-align: center;
+	}
+
+	.form-list {
+		width: 503px;
+		margin: 40px auto;
+		border: 1px solid #08595d;
+		padding: 40px;
+		background: #054548;
+		color: #fff;
+	}
+</style>
+
+
+
+</html>

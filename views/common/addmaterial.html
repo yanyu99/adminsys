@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="/javascripts/common/head.js"></script>
+		<style>
+			.layui-form-label {
+				width: 100px;
+			}
+		</style>
+		<script src="/lib/vue/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="add">
+			<div style="height: 15px;"></div>
+			<!--添加-->
+			<form class="layui-form" id="vue-add">
+				<div class="layui-form-item">
+					<label class="layui-form-label">增加新产品</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" lay-skin="switch" lay-text="是|不是" lay-filter="addneworold">
+					</div>
+					<label class="layui-form-label" style="display:online" id="materialnameLabel">产品名称</label>
+					<div class="layui-input-inline" id="materialname" style="display:online">
+						<select name="interest" id="material" lay-search lay-filter="material">
+						</select>
+                    </div>
+                    <label class="layui-form-label" style="display:none" id="newmaterialLabel">新产品</label>
+					<div class="layui-input-inline">
+						<input type="text" id="newmaterial" v-bind:value="newMaterial" v-model="paramModel.curMaterial" placeholder="请输入新材料" class="layui-input" style="display:none">
+					</div>
+					<label class="layui-form-label"  style="display:none" id="selunitmeasnameLabel">单位</label>
+					<div class="layui-input-inline" id="selunitmeasname" style="display:none">
+						<select id="selunitmeas" lay-search lay-filter="selunitmeas">
+						</select>
+					</div>
+					<label class="layui-form-label" style="display:online" id="unitmeasLabel">单位</label>
+					<div class="layui-input-inline">
+						<input id="unitmeas" style="display:online" type="text" v-bind:value="unitmeas" v-model="paramModel.curUnitmeas" placeholder="请输入单位" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+                    <label class="layui-form-label">产品型号</label>
+                    <div class="layui-input-inline">
+                        <input lay-verify="required" type="text" v-bind:value="nametype" v-model="paramModel.curName" placeholder="请输入型号" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">饰面</label>
+                    <div class="layui-input-inline">
+                        <input lay-verify="required" type="text" v-bind:value="style" v-model="paramModel.style" placeholder="请输入类型" class="layui-input">
+                    </div>
+					<label class="layui-form-label">材质</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" type="text" v-bind:value="texture" v-model="paramModel.texture" placeholder="请输入材质" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">以范围计算</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" lay-skin="switch" lay-text="是|不是" lay-filter="asRangeCalc">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="display:online" id="normalLenLabel">长(高)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" id="normalLen" type="text" v-bind:value="normalLen" v-model="paramModel.normalLen" placeholder="请输入标长" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="startLenLabel" style="display:none">起始(长/高)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" style="display:none" id="startLen" type="text" v-bind:value="startLen" v-model="paramModel.startLen" placeholder="请输入起始长" class="layui-input">
+					</div>
+					<label class="layui-form-label" style="display:online" id="normalWidLabel">宽</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" id="normalWid" type="text" v-bind:value="normalWid" v-model="paramModel.normalWid" placeholder="请输入标宽" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="startWidLabel" style="display:none">起始(宽)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" style="display:none" id="startWid" type="text" v-bind:value="startWid" v-model="paramModel.startWid" placeholder="请输入起始宽" class="layui-input">
+					</div>
+					<label class="layui-form-label" style="display:online" id="normalDeepLabel">深(厚)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" id="normalDeep" type="text" v-bind:value="normalDeep" v-model="paramModel.normalDeep" placeholder="请输入标高" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="startDeepLabel" style="display:none">起始(深/厚)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" style="display:none" id="startDeep" type="text" v-bind:value="startDeep" v-model="paramModel.startDeep" placeholder="请输入起始深" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" id="normalUpLenLabel">超长(高)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" id="normalUpLen" type="text" v-bind:value="normalUpLen" v-model="paramModel.normalUpLen" placeholder="请输入单位超长" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="endLenLabel" style="display:none">结束(长/高)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" style="display:none" id="endLen" type="text" v-bind:value="endLen" v-model="paramModel.endLen" placeholder="请输入结束长" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="normalUpWidLabel">超宽</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" id="normalUpWid" type="text" v-bind:value="normalUpWid" v-model="paramModel.normalUpWid" placeholder="请输入单位超宽" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="endWidLabel" style="display:none">结束(宽)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" style="display:none" id="endWid" type="text" v-bind:value="endWid" v-model="paramModel.endWid" placeholder="请输入结束宽" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="normalUpDeepLabel">超深(厚)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" id="normalUpDeep" type="text" v-bind:value="normalUpDeep" v-model="paramModel.normalUpDeep" placeholder="请输入单位超高" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="endDeepLabel" style="display:none">结束(深/厚)</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" style="display:none" id="endDeep" type="text" v-bind:value="endDeep" v-model="paramModel.endDeep" placeholder="请输入结束深" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+                    <label class="layui-form-label">形状</label>
+                    <div class="layui-input-inline">
+                        <input lay-verify="required" type="text" v-bind:value="type" v-model="paramModel.type" placeholder="请输入形状" class="layui-input">
+                    </div>
+					<label class="layui-form-label">倍价</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" type="text" v-bind:value="baseMulti" v-model="paramModel.baseMulti" placeholder="请输入倍价" class="layui-input">
+					</div>
+					<label class="layui-form-label" id="normalUpToPriceLabel">超出单价</label>
+					<div class="layui-input-inline">
+                        <input lay-verify="required" id="normalUpToPrice" type="text" v-bind:value="normalUpToPrice" v-model="paramModel.normalUpToPrice" placeholder="请输入超出单价" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+                    <label class="layui-form-label">单价</label>
+                    <div class="layui-input-inline">
+                        <input lay-verify="required" type="text" v-bind:value="singlePrice" v-model="paramModel.singlePrice" placeholder="请输入单价" class="layui-input">
+                    </div>
+					<label class="layui-form-label"></label>
+					<div class="layui-input-inline">
+						<button class="layui-btn layui-center" lay-submit lay-filter="save">立即保存</button>
+					</div>
+				</div>
+				<!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+			</form>
+		</div>
+		<script src="script/addmaterial.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,188 @@
+{
+	"texture": [
+		{
+			"id": 1,
+			"name": "SUS304",
+			"unitPrice": 20,
+			"density": 1
+		}, {
+			"id": 2,
+			"name": "SUS201",
+			"unitPrice": 21,
+			"density": 1
+		}, {
+			"id": 3,
+			"name": "Q235",
+			"unitPrice": 22,
+			"density": 1
+		}, {
+			"id": 4,
+			"name": "SECC",
+			"unitPrice": 23,
+			"density": 1
+		}
+	],
+	"thickness": [
+		0.8,
+		1,
+		1.2,
+		1.5,
+		2,
+		3
+	],
+	"textureThickUnitPrice": [
+		{
+			"textureId": 1,
+			"thickness": 0.8,
+			"boreUnitPrice": 10,
+			"cutUnitPrice": 5
+		}, {
+			"textureId": 1,
+			"thickness": 1,
+			"boreUnitPrice": 11,
+			"cutUnitPrice": 6
+		}, {
+			"textureId": 1,
+			"thickness": 1.2,
+			"boreUnitPrice": 11,
+			"cutUnitPrice": 6
+		}, {
+			"textureId": 1,
+			"thickness": 1.5,
+			"boreUnitPrice": 12,
+			"cutUnitPrice": 7
+		}, {
+			"textureId": 1,
+			"thickness": 2,
+			"boreUnitPrice": 13,
+			"cutUnitPrice": 8
+		}, {
+			"textureId": 1,
+			"thickness": 3,
+			"boreUnitPrice": 15,
+			"cutUnitPrice": 10
+		}, {
+			"textureId": 2,
+			"thickness": 0.8,
+			"boreUnitPrice": 10,
+			"cutUnitPrice": 5
+		}, {
+			"textureId": 2,
+			"thickness": 1,
+			"boreUnitPrice": 10,
+			"cutUnitPrice": 5
+		}, {
+			"textureId": 2,
+			"thickness": 1.2,
+			"boreUnitPrice": 11,
+			"cutUnitPrice": 6
+		}, {
+			"textureId": 2,
+			"thickness": 1.5,
+			"boreUnitPrice": 12,
+			"cutUnitPrice": 7
+		}, {
+			"textureId": 2,
+			"thickness": 2,
+			"boreUnitPrice": 13,
+			"cutUnitPrice": 8
+		}, {
+			"textureId": 2,
+			"thickness": 3,
+			"boreUnitPrice": 15,
+			"cutUnitPrice": 10
+		}, {
+			"textureId": 3,
+			"thickness": 0.8,
+			"boreUnitPrice": 10,
+			"cutUnitPrice": 5
+		}, {
+			"textureId": 3,
+			"thickness": 1,
+			"boreUnitPrice": 10,
+			"cutUnitPrice": 5
+		}, {
+			"textureId": 3,
+			"thickness": 1.2,
+			"boreUnitPrice": 11,
+			"cutUnitPrice": 6
+		}, {
+			"textureId": 3,
+			"thickness": 1.5,
+			"boreUnitPrice": 12,
+			"cutUnitPrice": 7
+		}, {
+			"textureId": 3,
+			"thickness": 2,
+			"boreUnitPrice": 13,
+			"cutUnitPrice": 8
+		}, {
+			"textureId": 3,
+			"thickness": 3,
+			"boreUnitPrice": 15,
+			"cutUnitPrice": 10
+		}, {
+			"textureId": 4,
+			"thickness": 0.8,
+			"boreUnitPrice": 11,
+			"cutUnitPrice": 6
+		}, {
+			"textureId": 4,
+			"thickness": 1,
+			"boreUnitPrice": 11,
+			"cutUnitPrice": 6
+		}, {
+			"textureId": 4,
+			"thickness": 1.2,
+			"boreUnitPrice": 11,
+			"cutUnitPrice": 6
+		}, {
+			"textureId": 4,
+			"thickness": 1.5,
+			"boreUnitPrice": 12,
+			"cutUnitPrice": 7
+		}, {
+			"textureId": 4,
+			"thickness": 2,
+			"boreUnitPrice": 13,
+			"cutUnitPrice": 8
+		}, {
+			"textureId": 4,
+			"thickness": 3,
+			"boreUnitPrice": 15,
+			"cutUnitPrice": 10
+		}
+	],
+	"surface": [
+		{
+			"id": 1,
+			"name": "喷塑",
+			"type": 0,
+			"unitPrice": 15
+		}, {
+			"id": 2,
+			"name": "镀锌",
+			"type": 1,
+			"unitPrice": 0
+		}, {
+			"id": 3,
+			"name": "发黑",
+			"type": 1,
+			"unitPrice": 0
+		}, {
+			"id": 4,
+			"name": "拉丝",
+			"type": 1,
+			"unitPrice": 0
+		}
+	],
+	"pack": [
+		"蜂窝纸",
+		"PP打包带",
+		"软包装",
+		"镀铝膜",
+		"铁芯线",
+		"铝箔复合膜",
+		"真空镀铝纸"
+	]
+}

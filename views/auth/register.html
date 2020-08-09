@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/lib/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/auth.css" media="all" />
+    <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui.js"></script>
+</head>
+
+<body>
+    <div class="registerPage wrap" id="registerPage">
+        <img src="/images/780.jpg" class="imgStyle">
+        <div class="registerDiv loginForm">
+            <form>
+                <div class="logoHead">
+                    <h2 style="margin-top: 15px">中意管理系统</h2>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="usernameLabel">
+                        <label>用户名:</label>
+                    </div>
+                    <div class="usernameDiv">
+                        <i class="layui-icon layui-icon-username adminIcon"></i>
+                        <input class="layui-input adminInput" type="text" name="txtAccount" v-model="txtAccount"
+                            placeholder="输入用户名">
+                    </div>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="usernameLabel">
+                        <label>密码:</label>
+                    </div>
+                    <div class="passwordDiv">
+                        <i class="layui-icon layui-icon-password adminIcon"></i>
+                        <input class="layui-input adminInput" type="password" name="txtPassword" v-model="txtPassword"
+                            placeholder="输入密码">
+                    </div>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="usernameLabel">
+                        <label>确认密码:</label>
+                    </div>
+                    <div class="passwordDiv">
+                        <i class="layui-icon layui-icon-password adminIcon"></i>
+                        <input class="layui-input adminInput" type="password" name="txtPassword2" v-model="txtPassword2"
+                            placeholder="输入密码">
+                    </div>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="submitLabel">
+                        <label>已有账号？<a href="/login">点击登录</a></label>
+                    </div>
+                    <div class="submitDiv">
+                        <input type="button" class="submit layui-btn layui-btn-primary" @click="Register"
+                            value="注册"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+<script src="/lib/vue/vue.js"></script>
+<script src="/utils/dmsHub.js"></script>
+
+
+<script>
+    window.dms = new dmsHub({
+        debug: false,
+    });
+    var vueLogin = new Vue({
+        el: '#registerPage',
+        data() {
+            return {
+                txtAccount: "",
+                txtPassword: "",
+                txtPassword2: ""
+            }
+        },
+        methods: {
+            Register() {
+                if (!this.txtAccount || !this.txtPassword || !this.txtPassword2) {
+                    alert("请先输入完善！");
+                    return;
+                }
+                if (this.txtPassword != this.txtPassword2) {
+                    alert("密码输入错误！");
+                }
+                dms.Register({ account: this.txtAccount, password: this.txtPassword }, (res) => {
+                    alert("注册成功，请先登录");
+                    window.location.href = "/login"
+                }, (res) => {
+                    alert(res.msg);
+                    console.warn(JSON.stringify(res));
+                });
+
+            },
+        },
+
+    });
+
+
+
+
+</script>
+
+</html>

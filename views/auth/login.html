@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/lib/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/auth.css" media="all" />
+    <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui.js"></script>
+</head>
+
+<body>
+    <div class="wrap" id="vue-offer-login">
+        <img src="/images/780.jpg" class="imgStyle">
+        <div class="loginForm">
+            <form>
+                <div class="logoHead">
+                    <h2 style="margin-top: 15px">中意管理系统</h2>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="usernameLabel">
+                        <label>用户名:</label>
+                    </div>
+                    <div class="usernameDiv">
+                        <i class="layui-icon layui-icon-username adminIcon"></i>
+                        <input class="layui-input adminInput" type="text" name="txtAccount" v-model="txtAccount"
+                            placeholder="输入用户名">
+                    </div>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="usernameLabel">
+                        <label>密码:</label>
+                    </div>
+                    <div class="passwordDiv">
+                        <i class="layui-icon layui-icon-password adminIcon"></i>
+                        <input class="layui-input adminInput" type="password" name="txtPassword" v-model="txtPassword"
+                            placeholder="输入密码">
+                    </div>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="usernameLabel">
+                        <label>验证码:</label>
+                    </div>
+                    <div class="cardDiv">
+                        <input class="layui-input cardInput" type="text" name="card" v-model="txtCode"
+                            placeholder="输入验证码">
+                    </div>
+                    <div class="codeDiv">
+                        <input class="layui-input codeInput" @click="changeCode" type="button" v-model="txtCodePic">
+                    </div>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="submitLabel">
+                        <label>没有账号？<a href="/register" id="loginRegister">点击注册</a></label>
+                    </div>
+                    <div class="submitDiv">
+                        <input type="button" class="submit layui-btn layui-btn-primary" @click="Login"
+                            value="登录"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+<script src="/lib/vue/vue.js"></script>
+<script src="/utils/dmsHub.js"></script>
+
+
+<script>
+    window.dms = new dmsHub({
+        debug: false,
+    });
+
+    var vueLogin = new Vue({
+        el: '#vue-offer-login',
+        data() {
+            return {
+                txtAccount: "",
+                txtPassword: "",
+                txtCode: "",
+                txtCodePic: ""
+            }
+        },
+        mounted() {
+            this.txtCodePic = dms.createCode();
+        },
+        methods: {
+            Login() {
+                if (!this.txtAccount || !this.txtPassword || !this.txtCode) {
+                    alert("请先输入完善！");
+                    return false;
+                }
+                if (this.txtCode.toLowerCase() != this.txtCodePic.toLowerCase()) {
+                    alert("验证码错误！");
+                    return false;
+                }
+
+                dms.Login({ account: this.txtAccount, password: this.txtPassword }, (res) => {
+                    console.log(JSON.stringify(res))
+                    window.location.href = "/"
+                }, (res) => {
+                    alert(res.msg);
+                    console.warn(JSON.stringify(res));
+                });
+            },
+            changeCode() {
+                this.txtCodePic = dms.createCode();
+            },
+        },
+    });
+</script>
+
+</html>

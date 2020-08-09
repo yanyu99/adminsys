@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="/javascripts/common/head.js"></script>
+	<style>
+		.layui-form-label {
+			width: 100px;
+		}
+	</style>
+	<script src="/lib/vue/vue.js"></script>
+</head>
+
+<body>
+	<div id="edit">
+		<div style="height: 15px;"></div>
+		<!--添加-->
+		<form class="layui-form" id="vue-edit">
+			<div class="layui-form-item">
+				<label class="layui-form-label">安装 区域</label>
+				<div class="layui-input-inline">
+					<input type="text" v-model="paramModel.usage" placeholder="安装区域备注" class="layui-input">
+				</div>
+				<label class="layui-form-label"></label>
+				<div class="layui-input-inline">
+					<button class="layui-btn layui-btn-danger layui-center" lay-submit lay-filter="save">立即保存</button>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">产品名称</label>
+				<div class="layui-input-inline">
+					<select name="material" id="material" lay-search lay-filter="material">
+					</select>
+				</div>
+				<label class="layui-form-label">产品型号</label>
+				<div class="layui-input-inline">
+					<select name="nametype" id="nametype" lay-search lay-filter="name">
+					</select>
+				</div>
+				<label class="layui-form-label">饰面</label>
+				<div class="layui-input-inline">
+					<select name="style" id="style" lay-filter="style">
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">材质</label>
+				<div class="layui-input-inline">
+					<select name="texture" id="texture" lay-filter="texture">
+					</select>
+				</div>
+				<label class="layui-form-label">形状</label>
+				<div class="layui-input-inline">
+					<select name="baseMulti" id="baseMulti" lay-filter="baseMulti">
+					</select>
+				</div>
+				<label class="layui-form-label">数量</label>
+				<div class="layui-input-inline">
+					<input lay-verify="required|number" type="text" v-model="paramModel.num" placeholder="请输入数量"
+						class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">长(高)</label>
+				<div class="layui-input-inline">
+					<input lay-verify="required|number" type="text" v-model="paramModel.realLen" placeholder="请输入长度"
+						class="layui-input">
+				</div>
+				<label class="layui-form-label">宽</label>
+				<div class="layui-input-inline">
+					<input lay-verify="required|number" type="text" v-model="paramModel.realWid" placeholder="请输入宽度"
+						class="layui-input">
+				</div>
+				<label class="layui-form-label">深(厚)</label>
+				<div class="layui-input-inline">
+					<input lay-verify="required|number" type="text" v-model="paramModel.realDeep" placeholder="请输入高度"
+						class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">超长(高)</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="upToLength" readonly="readonly" disabled="disabled"
+						class="layui-input">
+				</div>
+				<label class="layui-form-label">超宽</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="upToWidth" disabled="disabled" readonly="readonly"
+						class="layui-input">
+				</div>
+				<label class="layui-form-label">超深(厚)</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="upToDeep" readonly="readonly" disabled="disabled"
+						class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">单价</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="baseprice" readonly="readonly" disabled="disabled"
+						class="layui-input">
+				</div>
+				<label class="layui-form-label">倍价</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="baseMultiPrice" readonly="readonly" disabled="disabled"
+						class="layui-input">
+				</div>
+				<label class="layui-form-label">超出价</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="upToPrice" disabled="disabled" readonly="readonly"
+						class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">单个总价</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="singleTotalPrice" readonly="readonly" disabled="disabled"
+						class="layui-input">
+				</div>
+				<label class="layui-form-label">统计数量</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="calcNum" readonly="readonly" disabled="disabled"
+						class="layui-input">
+				</div>
+				<label class="layui-form-label">总价</label>
+				<div class="layui-input-inline">
+					<input type="text" v-bind:value="totalPrice" readonly="readonly" disabled="disabled"
+						class="layui-input">
+				</div>
+			</div>
+			<!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+		</form>
+	</div>
+	<hr />
+	<div style="margin:10px 0px 0 100px;color:#F00;font-size:18px">附加条件：</div>
+	<div id="box">
+		<p style="margin:10px 0px 0 100px">
+			<div id="pp" style="display: inline-block;margin:10px 0px 0 100px">
+				<a>1</a>
+				<select id="calMethod" style="height: 20px">
+				</select>
+				<select id="optionType" style="height: 20px">
+				</select>
+				<button class='addp' style="height: 20px">+</button>
+				<button class='delp' style="height: 20px">-</button>
+			</div>
+		</p>
+	</div>
+	<script src="script/com.js"></script>
+	<script src="script/edit.js"></script>
+</body>
+
+</html>
