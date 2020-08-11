@@ -73,15 +73,14 @@ class loginController {
         _password = crypto.createHash('md5').update(_password).digest('hex');
         var _curTime = new Date().getTime();
         _curTime = moment(_curTime).format('YYYY-MM-DD HH:mm:ss');
-        console.log(`当前时间==========${_curTime}`);
 
         var _dataObj = {
             account: _account,
             password: _password,
             role: "admin",
             is_enabled: 1,
-            create_at: _curTime,
-            login_at: _curTime
+            create_dt: _curTime,
+            login_dt: _curTime
         }
 
         new Promise((resolve, reject) => {
@@ -94,16 +93,6 @@ class loginController {
                 return resSendMsg(res, false, `注册失败！+${JSON.stringify(response)}`);
             });
         });
-
-
-
-
-        // (async () => {
-        //     var _insertData = models.account.create(_dataObj);
-        //     console.log('created: ' + JSON.stringify(_insertData));
-        //     return resSendMsg(res, true, "注册成功！");
-        // })();
-
 
     }
 
@@ -138,14 +127,18 @@ class loginController {
         var _curTime = new Date().getTime();
         _curTime = moment(_curTime).format('YYYY-MM-DD HH:mm:ss');
 
-        console.log(`当前时间==========${_curTime}`);
+        //更新
+        (async () => {
+            user.login_dt = _curTime
+            await user.save()
+        })();
 
-        var _pram = { 'login_at': _curTime };
-        await models.account.update(
-            _pram, {
-                'where': { 'id': { eq: user.id } }
-            }
-        );
+        // var _pram = { 'login_dt': _curTime };
+        // await models.account.update(
+        //     _pram, {
+        //         'where': { 'id': { eq: user.id } }
+        //     }
+        // );
 
         req.session.user = user;
         var userMenu = user.role == "super" ? arrMenu : (arrMenu.filter(i => i.role == "all") || []);//菜单权限

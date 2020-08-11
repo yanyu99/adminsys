@@ -46,16 +46,16 @@ router.get('/account', auth.loginRequired, function (req, res, next) {
 router.get('/getuserdata', offerApi.getUserData);
 
 //add user offer will use this
-router.post('/addUserOffer', offerApi.addUserOffer);
+router.post('/addUserOffer', offerApi.apiMain);
 
 //delete user offer will use this
-router.post('/deleteUserOffer', offerApi.deleteUserOffer);
+router.post('/deleteUserOffer', offerApi.apiMain);
 
 //copy user offer will use this
-router.post('/copyUserOffer', offerApi.copyUserOffer);
+router.post('/copyUserOffer', offerApi.apiMain);
 
 //update user offer by id will use this
-router.post('/updateUserOfferById', offerApi.updateUserOfferById);
+router.post('/updateUserOfferById', offerApi.apiMain);
 
 //get the option value from the added database or offer page will use this
 router.get('/optionvalue', offerApi.optionvalue);
@@ -70,23 +70,26 @@ router.get('/pagematerial', offerApi.pagematerial);
 router.get('/demo/table/user', offerApi.demoTableUser)
 
 //add database will use this
-router.post('/addDatabase', offerApi.addDatabase);
+router.post('/addDatabase', offerApi.apiMain);
 
 //save database will use this
 router.get('/save', offerApi.save);
 //edit texture in the database will use this
-router.post('/updatetexture', offerApi.updatetexture);
+router.post('/updatetexture', offerApi.apiMain);
 //del styles in the database will use this
-router.post('/delStyles', offerApi.delStyles);
+router.post('/delStyles', offerApi.apiMain);
 //export the offer will check whether the offer excel is ready.
 router.get('/checkoffer', offerApi.checkoffer);
 
 //user offer table will use this
 router.get('/demo/table/offer', offerApi.demoTableOffer)
 
-router.get('/offerdata', offerApi.offerdata)
+router.get('/offerdata', offerApi.apiMain)
 
-router.post('/updatediscount', offerApi.updatediscount)
+router.post('/updatediscount', offerApi.apiMain)
+
+//clear the offer data then save into the excel
+router.get('/clearUserOfferTable', offerApi.apiMain)
 
 // app.get('/getdiscount', function(req, res, next) {
 //   var ip = getclientip(req);
@@ -96,8 +99,6 @@ router.post('/updatediscount', offerApi.updatediscount)
 //   res.send(ret);
 // })
 
-//clear the offer data then save into the excel
-router.get('/clearUserOfferTable', offerApi.clearUserOfferTable)
 
 // catch 404 and forward to error handler
 router.use(function (req, res, next) {

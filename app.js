@@ -57,11 +57,6 @@ app.use((req, res, next) => {
 //加载路由
 app.use('/', _routes);
 
-// app.get(['/test', '/test1'], (req, res, next) => {
-//   res.send("测试测试");
-// });
-
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

@@ -1,6 +1,3 @@
-var app = require('express');
-var path = require('path');
-
 
 var materialuntil = require("../public/javascripts/common/materialuntil");
 var materialinfo = materialuntil.materialinfo;
@@ -24,29 +21,6 @@ const extend = (obj1, obj2) => {
     return obj1;
 }
 
-const getCurFName = (fn) => {
-    return (/^[\s\(]*function(?:\s+([\w$_][\w\d$_]*))?\(/).exec(fn.toString())[1] || '';
-}
-
-const userOfferDataOp = (res, req, jsonMsg, emitData) => {
-    var ip = getclientip(req);
-    var data = req.body;
-    var _curFuncName = getCurFName(arguments.callee);
-    if (!_curFuncName) {
-        return
-    }
-    console.log(_curFuncName + " req: ", data);
-    eventEmitter.emit(_curFuncName,
-        {
-            "materialinfo": materialinfo,
-            "data": data,
-            "ip": ip,
-            ...emitData
-        });
-    res.send(jsonMsg);
-    //res.send("{\"response\":\"post " + _curFuncName + " successfully\"}");
-}
-
 
 
 /** 接口相关 */
@@ -65,35 +39,58 @@ class offerApiController {
         res.send(ret);
     }
 
-
-    async addUserOffer(req, res, next) {
-        var jsonMsg = "{\"response\":\"post addUserOffer successfully\"}";
-        userOfferDataOp(res, req, jsonMsg);
-    }
-
-    async deleteUserOffer(req, res, next) {
-        var jsonMsg = "{\"response\":\"post deleteUserOffer successfully\"}";
-        userOfferDataOp(res, req, jsonMsg);
-    }
-    //copy user offer will use this
-    async copyUserOffer(req, res, next) {
-
-        var jsonMsg = "{\"response\":\"post copyUserOffer successfully\"}";
-        userOfferDataOp(res, req, jsonMsg);
-
-    }
-
-    //update user offer by id will use this
-    async updateUserOfferById(req, res, next) {
+    //参数多余ip:addDatabase ,updatetexture 
+    //参数多余data:offerdata  clearUserOfferTable
+    //updateUserOfferById
+    async apiMain(req, res, next) {
+        var ip = getclientip(req);
         var data = req.body;
-        var jsonMsg = "{\"response\":\"post updateUserOfferById successfully\"}";
-        userOfferDataOp(res, req, jsonMsg, {
-            "data": data.data,
-            "id": data.id
-        });
+        var _emitObj = { "materialinfo": materialinfo };
+        var reqPostPath = ["addUserOffer", "deleteUserOffer", "copyUserOffer", "addDatabase", "updatetexture", "updatediscount"];
+        var _reqPath = req.path || "";
+        var _funName = _reqPath && _reqPath.indexOf("/") && _reqPath.subStr(1);
+        var intRet = reqPostPath.slice().findIndex(i => i == _funName);
+        var jsonMsgType = "";
+        var _curEmitParam = {};
+
+        if (intRet == 0) {
+            _curEmitParam = {
+                "data": data,
+                "ip": ip,
+                ..._emitObj
+            }
+            jsonMsgType = _funName == "updatediscount" ? "state" : "";
+        }
+        else if (_funName == "delStyles") {
+            _curEmitParam = {
+                "ids": data.ids,
+                ..._emitObj
+            }
+        }
+        else if (_funName == "offerdata" || _funName == "clearUserOfferTable") {
+            _curEmitParam = {
+                "ip": ip,
+                ..._emitObj
+            }
+            jsonMsgType = "state";
+
+        } else if (_funName == "updateUserOfferById") {
+            _curEmitParam = {
+                "data": data.data,
+                "ip": ip,
+                "id": data.id,
+                ..._emitObj
+            }
+
+        } else {
+            res.send("{\"state\":\"error\"}");
+        }
+        console.log(_funName + " req: ", data);
+        eventEmitter.emit(_funName, _curEmitParam);
+        var _strMsg = jsonMsgType == "state" ? "{\"state\":\"ok\"}" : "{\"response\":\"post " + _funName + " successfully\"}"
+        res.send(_strMsg);
+
     }
-
-
 
 
     //get the option value from the added database or offer page will use this
@@ -146,12 +143,6 @@ class offerApiController {
         res.send(ret);
     }
 
-    //add database will use this
-    async addDatabase(req, res, next) {
-        var jsonMsg = "{\"response\":\"post addDatabase successfully\"}";
-        userOfferDataOp(res, req, jsonMsg);  //参数多余 ip
-    }
-
 
     //save database will use this
     async save(req, res, next) {
@@ -159,24 +150,6 @@ class offerApiController {
         eventEmitter.emit("save", materialinfo);
         res.send("{\"response\":\"get save successfully\"}");
     }
-
-
-    //edit texture in the database will use this
-    async updatetexture(req, res, next) {
-        var jsonMsg = "{\"response\":\"post updatetexture successfully\"}";
-        userOfferDataOp(res, req, jsonMsg);  //参数多余 ip
-    }
-
-
-
-    //del styles in the database will use this
-    async delStyles(req, res, next) {
-        var jsonMsg = "{\"response\":\"post delStyles successfully\"}";
-        userOfferDataOp(res, req, jsonMsg, {
-            "ids": data.ids
-        });  //参数多余data
-    }
-
 
 
     //export the offer will check whether the offer excel is ready.
@@ -228,16 +201,6 @@ class offerApiController {
     }
 
 
-    async offerdata(req, res, next) {
-        var jsonMsg = "{\"state\":\"ok\"}";
-        userOfferDataOp(res, req, jsonMsg); //多余参数data
-    }
-
-    async updatediscount(req, res, next) {
-        var jsonMsg = "{\"state\":\"ok\"}";
-        userOfferDataOp(res, req, jsonMsg);
-    }
-
 
     // app.get('/getdiscount', function(req, res, next) {
     //   var ip = getclientip(req);
@@ -247,11 +210,6 @@ class offerApiController {
     //   res.send(ret);
     // })
 
-    //clear the offer data then save into the excel
-    async clearUserOfferTable(req, res, next) {
-        var jsonMsg = "{\"state\":\"ok\"}";
-        userOfferDataOp(res, req, jsonMsg);//多余参数data
-    }
 }
 
 module.exports = new offerApiController();

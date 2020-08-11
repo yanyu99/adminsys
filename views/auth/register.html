@@ -47,7 +47,7 @@
                     <div class="passwordDiv">
                         <i class="layui-icon layui-icon-password adminIcon"></i>
                         <input class="layui-input adminInput" type="password" name="txtPassword2" v-model="txtPassword2"
-                            placeholder="输入密码">
+                            placeholder="输入密码" @keyup.enter="Register">
                     </div>
                 </div>
                 <div class="usernameWrapDiv">

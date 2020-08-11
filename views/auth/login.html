@@ -46,7 +46,7 @@
                     </div>
                     <div class="cardDiv">
                         <input class="layui-input cardInput" type="text" name="card" v-model="txtCode"
-                            placeholder="输入验证码">
+                            placeholder="输入验证码" @keyup.enter="Login">
                     </div>
                     <div class="codeDiv">
                         <input class="layui-input codeInput" @click="changeCode" type="button" v-model="txtCodePic">
