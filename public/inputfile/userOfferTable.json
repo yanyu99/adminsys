@@ -1,33 +1,6 @@
 {
     "localhost": {
         "discount": "1",
-        "data": [
-            {
-                "usage": "",
-                "curMaterial": "房门",
-                "curName": "ZFA-1",
-                "style": "混油",
-                "texture": "复合",
-                "type": "单门",
-                "num": "1",
-                "unitmeas": "樘",
-                "calcNum": "1",
-                "calcUnitmeas": "樘",
-                "realLen": "2",
-                "realWid": "2",
-                "realDeep": "2",
-                "realUpLen": "0",
-                "realUpWid": "0",
-                "realUpDeep": "0",
-                "basePrice": "2900",
-                "baseMulti": "1",
-                "realUpToPrice": "0",
-                "singlePrice": "3300",
-                "totalPrice": "3300",
-                "options": "按单价计算/隐形门/400;",
-                "id": 1,
-                "discountPrice": "3300.00"
-            }
-        ]
+        "data": []
     }
 }
